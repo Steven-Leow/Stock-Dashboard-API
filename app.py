@@ -26,8 +26,7 @@ def get_stock_data(symbol):
 @app.route('/stock', methods=['GET'])
 def stock():
     symbol = request.args.get("symbol", "AAPL")  # Default to AAPL if not provided
-    interval = request.args.get("interval", "5min")
-    data = get_stock_data(symbol, interval)
+    data = get_stock_data(symbol)
     return jsonify(data)
 
 
