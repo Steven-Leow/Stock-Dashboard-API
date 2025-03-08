@@ -23,10 +23,27 @@ def get_stock_data(symbol):
     return response.json()
 
 
-@app.route('/stock', methods=['GET'])
+def get_stock_profile(symbol):
+    params = {
+        "function": "OVERVIEW",
+        "symbol": symbol,
+        "apikey": API_KEY
+    }
+    response = requests.get(BASE_URL, params=params)
+    return response.json()
+
+
+@app.route('/stock_data', methods=['GET'])
 def stock():
     symbol = request.args.get("symbol", "AAPL")  # Default to AAPL if not provided
     data = get_stock_data(symbol)
+    return jsonify(data)
+
+
+@app.route('/stock_profile', methods=['GET'])
+def profile():
+    symbol = request.args.get("symbol", "AAPL")  # Default to AAPL if not provided
+    data = get_stock_profile(symbol)
     return jsonify(data)
 
 
